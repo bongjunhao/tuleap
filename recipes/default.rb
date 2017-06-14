@@ -20,6 +20,6 @@ template '/etc/yum.repos.d/Tuleap.repo' do
   source 'Tuleap.repo.erb'
 end
 
-# execute 'install-tuleap' do
-#   command 'yum install -y tuleap-all tuleap-plugin-git-gitolite3'
-# end
+execute 'install-tuleap' do
+  command 'sudo yum install -y tuleap-all tuleap-plugin-git-gitolite3'
+end
