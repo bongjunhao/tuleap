@@ -23,3 +23,7 @@ end
 execute 'install-tuleap' do
   command 'sudo yum install -y tuleap-all tuleap-plugin-git-gitolite3'
 end
+
+execute 'install-im-plugin' do
+  command 'sudo yum install -y tuleap-plugin-im'
+end
