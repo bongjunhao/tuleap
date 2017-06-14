@@ -11,19 +11,23 @@ remote_file package_local_path do
   source package_url
 end
 
-package package_name do
-  source package_local_path
-  provider Chef::Provider::Package::Rpm
-end
-
 template '/etc/yum.repos.d/Tuleap.repo' do
   source 'Tuleap.repo.erb'
 end
 
+package package_name do
+  source package_local_path
+  provider Chef::Provider::Package::Rpm
+  notifies :run, 'execute[install-tuleap]', :immediately
+  notifies :run, 'execute[install-im-plugin]', :immediately
+end
+
 execute 'install-tuleap' do
   command 'sudo yum install -y tuleap-all tuleap-plugin-git-gitolite3'
+  action :nothing
 end
 
 execute 'install-im-plugin' do
   command 'sudo yum install -y tuleap-plugin-im'
+  action :nothing
 end
