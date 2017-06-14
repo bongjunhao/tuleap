@@ -49,7 +49,9 @@ Vagrant.configure("2") do |config|
   # Bridged networks make the machine appear as another physical device on
   # your network.
   # config.vm.network "public_network"
-  config.vm.network "public_network", bridge: "Intel(R) 82579LM Gigabit Network Connection"
+  # config.vm.network "public_network", bridge: "Intel(R) 82579LM Gigabit Network Connection"
+  # config.vm.network "public_network", bridge: "Intel(R) Centrino(R) Ultimate-N 6300 AGN"
+  config.vm.network "public_network", ip: "10.186.50.0"
   config.vm.provision "shell", inline: $script
 
   # Share an additional folder to the guest VM. The first argument is

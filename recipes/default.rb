@@ -20,6 +20,8 @@ package package_name do
   provider Chef::Provider::Package::Rpm
   notifies :run, 'execute[install-tuleap]', :immediately
   notifies :run, 'execute[install-im-plugin]', :immediately
+  notifies :run, 'execute[save-ip]', :immediately
+  notifies :run, 'execute[tuleap-setup]', :immediately
 end
 
 execute 'install-tuleap' do
@@ -29,5 +31,15 @@ end
 
 execute 'install-im-plugin' do
   command 'sudo yum install -y tuleap-plugin-im'
+  action :nothing
+end
+
+execute 'save-ip' do
+  command 'ip="$(ifconfig | grep -A 1 'eth0' | tail -1 | cut -d ':' -f 2 | cut -d ' ' -f 1)"'
+  action :nothing
+end
+
+execute 'tuleap-setup' do
+  command ./setup.sh --sys-default-domain=$ip --sys-org-name='oracle fedex day'
   action :nothing
 end
